@@ -1,33 +1,71 @@
 import React, { useState } from "react";
 
-function Square() {
-  const [value, setValue] = useState(null);
-  function handleButtonClick() {
-    setValue("X");
-  }
+function Square({ value, handleSquareClick }) {
   return (
-    <button className="square" onClick={handleButtonClick}>
+    <button className="square" onClick={handleSquareClick}>
       {value}
     </button>
   );
 }
 export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  function handleSquareClick(i) {
+    if (squares[i]){
+      return;
+    }
+    let nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
   return (
     <div>
       <div className="board-row">
-        <Square value={1} />
-        <Square value={2} />
-        <Square value={3} />
+        <Square
+          value={squares[0]}
+          handleSquareClick={() => handleSquareClick(0)}
+        />
+        <Square
+          value={squares[1]}
+          handleSquareClick={() => handleSquareClick(1)}
+        />
+        <Square
+          value={squares[2]}
+          handleSquareClick={() => handleSquareClick(2)}
+        />
       </div>
       <div className="board-row">
-        <Square value={4} />
-        <Square value={5} />
-        <Square value={6} />
+        <Square
+          value={squares[3]}
+          handleSquareClick={() => handleSquareClick(3)}
+        />
+        <Square
+          value={squares[4]}
+          handleSquareClick={() => handleSquareClick(4)}
+        />
+        <Square
+          value={squares[5]}
+          handleSquareClick={() => handleSquareClick(5)}
+        />
       </div>
       <div className="board-row">
-        <Square value={7} />
-        <Square value={8} />
-        <Square value={9} />
+        <Square
+          value={squares[6]}
+          handleSquareClick={() => handleSquareClick(6)}
+        />
+        <Square
+          value={squares[7]}
+          handleSquareClick={() => handleSquareClick(7)}
+        />
+        <Square
+          value={squares[8]}
+          handleSquareClick={() => handleSquareClick(8)}
+        />
       </div>
     </div>
   );
